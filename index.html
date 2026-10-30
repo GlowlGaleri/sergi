@@ -101,7 +101,7 @@
   /* ---------- Dokunmatik yön tuşları ---------- */
   #dpad{position:fixed;left:16px;bottom:18px;z-index:45;display:none;grid-template-columns:repeat(3,62px);grid-template-rows:repeat(2,62px);gap:6px}
   #dpad button{border:0;border-radius:16px;background:#ffffffe6;box-shadow:0 3px 14px #0004;font-size:24px;color:#2a1650;touch-action:none}#dpad button:active{background:#7a1030;color:#fff}
-  #dpad .u{grid-column:2}
+  #dpad .sl,#dpad .sr{font-size:30px;font-weight:700}
   @media (pointer:coarse),(hover:none),(max-width:900px){#dpad{display:grid}}
   body.touch #dpad{display:grid}
   @media (max-height:520px){#dpad{grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,52px);bottom:12px}}
@@ -204,7 +204,7 @@
 </div>
 
 <div id="dpad" class="hidden">
-  <button class="u" data-k="dUp" aria-label="İleri">&#9650;</button>
+  <button class="sl" data-k="dStrL" aria-label="Sola yan adım">&laquo;</button><button class="u" data-k="dUp" aria-label="İleri">&#9650;</button><button class="sr" data-k="dStrR" aria-label="Sağa yan adım">&raquo;</button>
   <button data-k="dLeft" aria-label="Sola dön">&#9664;</button><button data-k="dDown" aria-label="Geri">&#9660;</button><button data-k="dRight" aria-label="Sağa dön">&#9654;</button>
 </div>
 <div id="toast"></div>
@@ -4800,7 +4800,6 @@ function buildSalon(g){
     x.font=`400 ${.18*ppm}px ${FONT}`;x.letterSpacing=(.16*.18*ppm)+'px';x.fillText('1 KASIM — 31 ARALIK 2026',m*ppm,yd);
     x.fillRect(m*ppm,yd+.17*ppm,.9*ppm,.012*ppm);
     x.font=`300 ${.14*ppm}px ${FONT}`;x.letterSpacing=(.1*.14*ppm)+'px';x.fillStyle='#4b4856';x.fillText('ÖNDER TOKUÇ  ·  GLOWL GALERİ, BURSA',m*ppm,yd+.45*ppm);
-    drawLogo(x,ppm,w-m-1.9,.5,1.9);
   });
   // Giriş duvarının arka yüzü (+x): sanatçı
   wallPlane(g,7.2,3.7,300,[IX+.112,1.85,0],Math.PI/2,(x,ppm,w,h)=>{
@@ -4882,7 +4881,7 @@ function controls(dt,t){
   if(modalOpen())return;
   const k=state.keys,run=(k.ShiftLeft||k.ShiftRight)?1.8:1;
   const f=((k.KeyW||k.ArrowUp||k.dUp)?1:0)-((k.KeyS||k.ArrowDown||k.dDown)?1:0);
-  const s=(k.KeyD?1:0)-(k.KeyA?1:0);
+  const s=((k.KeyD||k.dStrR)?1:0)-((k.KeyA||k.dStrL)?1:0);
   const tr=((k.KeyQ||k.ArrowLeft||k.dLeft)?1:0)-((k.KeyE||k.ArrowRight||k.dRight)?1:0);
   state.yaw+=tr*1.7*dt;
   let moving=false;const yaw=state.yaw;
